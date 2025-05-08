@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block body %}
+<form method="post" action="{{url}}">
+    <label for="{{select_name}}">
+        Please select {{select_title}} :
+    </label>
+    <select name="{{select_name}}" id="{{select_id}}">
+        {% block content %}
+        {% if datatype == "swimmer" %}
+            {% for SwimmerName in data %}
+                <option value="{{SwimmerName}}">{{SwimmerName}}</option>
+            {% endfor %}
+        {% else %}
+            {% for fileName in data %}
+                <option value="{{fileName}}">{{(fileName.removesuffix(".txt").split("-",2)[-1]).replace("-"," ")}}</option>
+            {% endfor %}
+        {% endif %}
+        {% endblock content %}
+    </select>
+    <p>
+        <input type="submit" value="Select">
+    </p>
+</form>
+{% endblock %}
